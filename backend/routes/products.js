@@ -26,11 +26,31 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const products = readProducts();
 
+  const name = req.body.name?.trim();
+  const price = Number(req.body.price);
+  const quantity = Number(req.body.quantity);
+
+  if (!name) {
+    return res.status(400).json({ message: "Product name is required" });
+  }
+
+  // DUPLICATE CHECK (case-insensitive + trimmed)
+  const existingProduct = products.find(
+    p => p.name.trim().toLowerCase() === name.toLowerCase()
+  );
+
+  if (existingProduct) {
+  existingProduct.quantity = Number(quantity);
+  existingProduct.price = Number(price);
+  writeProducts(products);
+  return res.json(existingProduct);
+}
+
   const product = {
     id: Date.now(),
-    name: req.body.name,
-    price: Number(req.body.price),
-    quantity: Number(req.body.quantity)
+    name,
+    price,
+    quantity
   };
 
   products.push(product);
@@ -38,6 +58,7 @@ router.post("/", (req, res) => {
 
   res.status(201).json(product);
 });
+
 
 // UPDATE quantity
 router.put("/:id", (req, res) => {
