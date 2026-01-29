@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>📦 Inventory System</h1>
+
+  <input id="name" placeholder="Product name">
+  <input id="price" type="number" placeholder="Price">
+  <input id="quantity" type="number" placeholder="Quantity">
+  <button onclick="addProduct()">Add Product</button>
+
+  <h3>Total Inventory Value: €<span id="total">0</span></h3>
+
+  <ul id="products" class="product-list"></ul>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
