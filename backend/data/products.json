@@ -1,14 +1,8 @@
 [
   {
-    "id": 1769872542055,
+    "id": 1769873297077,
     "name": "Milk",
-    "price": 5,
-    "quantity": 50
-  },
-  {
-    "id": 1769872820055,
-    "name": "Salt",
     "price": 2,
-    "quantity": 40
+    "quantity": 50
   }
 ]
