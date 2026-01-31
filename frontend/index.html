@@ -7,20 +7,42 @@
 <body>
 
 <div class="container">
-   
   <h1>📦 Inventory System</h1>
 
-   <div id="message" class="message"></div>
+  <!-- Navigation tabs -->
+  <div class="tabs">
+    <button class="tab-button active" onclick="showTab('add')">Add Product</button>
+    <button class="tab-button" onclick="showTab('list')">Product List</button>
+  </div>
 
-  <input id="name" placeholder="Product name">
-  <input id="price" type="number" placeholder="Price">
-  <input id="quantity" type="number" placeholder="Quantity">
-  <button onclick="addProduct()">Add Product</button>
+  <!-- MESSAGE POPUP -->
+  <div id="message" class="message"></div>
 
-  <h3>Total Inventory Value: €<span id="total">0</span></h3>
+  <!-- Tab 1: Add Product -->
+  <div id="tab-add" class="tab-content">
+    <input id="name" placeholder="Product name">
+    <input id="price" type="number" placeholder="Price">
+    <input id="quantity" type="number" placeholder="Quantity">
+    <button onclick="addProduct()">Add Product</button>
+  </div>
 
-  <ul id="products" class="product-list"></ul>
-
+  <!-- Tab 2: Product List -->
+  <div id="tab-list" class="tab-content" style="display:none;">
+    <table id="products-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price (€)</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="products-tbody">
+        <!-- Products will be inserted here dynamically -->
+      </tbody>
+    </table>
+    <h3>Total Inventory Value: €<span id="total">0</span></h3>
+  </div>
 </div>
 
 <script src="app.js"></script>

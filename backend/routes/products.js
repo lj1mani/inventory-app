@@ -15,9 +15,7 @@ const writeProducts = (data) =>
 router.get("/", (req, res) => {
   const products = readProducts();
   const totalValue = products.reduce(
-    (sum, p) => sum + p.price * p.quantity,
-    0
-  );
+    (sum, p) => sum + p.price * p.quantity,0);
 
   res.json({ products, totalValue });
 });

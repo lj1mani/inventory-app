@@ -1,46 +1,56 @@
 const list = document.getElementById("products");
 const totalSpan = document.getElementById("total");
 
-const showMessage = (text) => {
+const showMessage = (text, type = "error") => {
   const msg = document.getElementById("message");
   msg.innerText = text;
-  msg.classList.add("show");
+
+  // Reset classes
+  msg.className = "message";
+
+  // Add appropriate class
+  if (type === "success") {
+    msg.classList.add("success");
+  } else {
+    msg.classList.add("show"); // default error
+  }
 
   // Hide after 10 seconds
   setTimeout(() => {
-    msg.classList.remove("show");
+    msg.className = "message";
   }, 10000);
 };
+
 
 
 const loadProducts = async () => {
   const res = await fetch("/api/products");
   const data = await res.json();
 
-  list.innerHTML = "";
-  totalSpan.innerText = data.totalValue.toFixed(2);
+  const tbody = document.getElementById("products-tbody");
+  tbody.innerHTML = "";
 
-data.products.forEach(p => {
-  const li = document.createElement("li");
+  let total = 0;
 
-  // Base class for every product
-  li.classList.add("product-item");
+  data.products.forEach(p => {
+    const tr = document.createElement("tr");
 
-  // Add class if stock is low
-  if (p.quantity < 5) {
-    li.classList.add("low-stock");
-  }
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>€${p.price}</td>
+      <td>${p.quantity}</td>
+      <td>
+        <button onclick="removeProduct(${p.id})">❌</button>
+      </td>
+    `;
 
-  li.innerHTML = `
-    <strong>${p.name}</strong><br>
-    €${p.price} x ${p.quantity}
-    <button onclick="removeProduct(${p.id})">❌</button>
-  `;
+    tbody.appendChild(tr);
+    total += p.price * p.quantity;
+  });
 
-  list.appendChild(li);
-});
-
+  document.getElementById("total").innerText = total.toFixed(2);
 };
+
 
 const addProduct = async () => {
   const name = document.getElementById("name").value.trim();
@@ -81,10 +91,14 @@ const addProduct = async () => {
       return;
     }
 
+
     // Clear inputs after successful addition
     document.getElementById("name").value = "";
     document.getElementById("price").value = "";
     document.getElementById("quantity").value = "";
+
+    showMessage("✅ Product added successfully!", "success");
+
 
     // Reload product list
     loadProducts();
@@ -101,6 +115,16 @@ const removeProduct = async (id) => {
   await fetch(`/api/products/${id}`, { method: "DELETE" });
   loadProducts();
 };
+
+function showTab(tab) {
+  const tabs = ['add', 'list'];
+  tabs.forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = (t === tab) ? 'block' : 'none';
+    document.querySelector(`.tab-button[onclick="showTab('${t}')"]`)
+            .classList.toggle('active', t === tab);
+  });
+}
+
 
 loadProducts();
 
