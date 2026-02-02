@@ -55,5 +55,4 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 
 ---
 
-## 📂 Project Structure
 
