@@ -46,5 +46,17 @@
     "name": "Ice Cream",
     "price": 2,
     "quantity": 60
+  },
+  {
+    "id": 1770065624042,
+    "name": "Baklava",
+    "price": 2,
+    "quantity": 50
+  },
+  {
+    "id": 1770065634508,
+    "name": "Cake",
+    "price": 6,
+    "quantity": 20
   }
 ]

@@ -69,10 +69,11 @@ button:hover {
 /* Total value */
 h3 {
   text-align: center;
-  margin-bottom: 15px;
-  font-weight: normal;
+  margin: 30px 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #2a5298;
 }
-
 /* Product list */
 .product-list {
   list-style: none;
