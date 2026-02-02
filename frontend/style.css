@@ -20,6 +20,7 @@ body {
 .container {
   background: #ffffff;
   width: 650px;
+  min-height: 60vh;
   padding: 24px;
   border-radius: 14px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -203,7 +204,7 @@ table button:hover {
 }
 
 /* Mobile Responsive */
-@media (max-width: 768px) {
+@media (max-width: 821px) {
   body {
     display: block;
     padding: 0;
@@ -214,6 +215,7 @@ table button:hover {
     min-height: 100vh;
     padding: 16px;
     border-radius: 0;
+    background-color: #ebf5fb;
   }
 
   h1 {
@@ -249,6 +251,7 @@ table button:hover {
   .tab-content {
   margin-top: 10px; 
 }
+
 
 
 }

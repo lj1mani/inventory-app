@@ -37,7 +37,7 @@ const loadProducts = async () => {
 
     tr.innerHTML = `
       <td>${p.name}</td>
-      <td>€${p.price}</td>
+      <td>${p.price} €</td>
       <td>${p.quantity}</td>
       <td>
         <button onclick="removeProduct(${p.id})">❌</button>
