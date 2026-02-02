@@ -15,10 +15,10 @@ const showMessage = (text, type = "error") => {
     msg.classList.add("show"); // default error
   }
 
-  // Hide after 10 seconds
+  // Hide after 6 seconds
   setTimeout(() => {
     msg.className = "message";
-  }, 10000);
+  }, 6000);
 };
 
 
@@ -127,9 +127,3 @@ function showTab(tab) {
 
 
 loadProducts();
-
-
-
-
-
-
