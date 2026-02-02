@@ -32,8 +32,8 @@
   {
     "id": 1770064467104,
     "name": "Bread",
-    "price": 1,
-    "quantity": 20
+    "price": 2,
+    "quantity": 70
   },
   {
     "id": 1770064489733,
@@ -58,5 +58,11 @@
     "name": "Cake",
     "price": 6,
     "quantity": 20
+  },
+  {
+    "id": 1770071674249,
+    "name": "Cedevita",
+    "price": 3,
+    "quantity": 30
   }
 ]

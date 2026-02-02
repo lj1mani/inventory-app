@@ -65,5 +65,18 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 - Vanilla JavaScript (no frameworks)
 
 ---
+
+## 🖼️ Screenshots
+
+### ➕ Add Product
+![Add Product](screenshots/add_product.jpg)
+
+### 📊 Product List
+![Product List](screenshots/product_list.jpg)
+
+### 📱 Mobile View
+![Mobile View Add product](screenshots/mobile_view_add.jpg)
+![Mobile View List product](screenshots/mobile_view_list.jpg)
+
  
 
