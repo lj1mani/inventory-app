@@ -112,7 +112,8 @@ h3 {
 
 /* Alert message */
 .message {
-  display: none;           /* hidden by default */
+  display: none;
+  /* hidden by default */
   padding: 10px 12px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -127,6 +128,7 @@ h3 {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
+
 .message.show {
   display: block;
   opacity: 1;
@@ -179,7 +181,8 @@ table {
   border-collapse: collapse;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 8px;
   text-align: center;
   border-bottom: 1px solid #ddd;
@@ -203,7 +206,25 @@ table button:hover {
   background: #f47668;
 }
 
-/* Mobile Responsive */
+/* Table scroll container */
+.table-wrapper {
+  max-height: 300px;
+  /* desktop */
+  overflow-y: auto;
+}
+
+
+/* Hide tab content by default */
+.tab-content {
+  display: none;
+}
+
+/* Show only active tab */
+.tab-content.active {
+  display: block;
+}
+
+/************************ Mobile Responsive **************************************************************/
 @media (max-width: 821px) {
   body {
     display: block;
@@ -222,7 +243,8 @@ table button:hover {
     font-size: 1.5rem;
   }
 
-  input, button {
+  input,
+  button {
     font-size: 14px;
     padding: 10px;
   }
@@ -249,11 +271,14 @@ table button:hover {
   }
 
   .tab-content {
-  margin-top: 10px; 
+    margin-top: 10px;
+    display: none;
+  }
+
+  .table-wrapper {
+    max-height: calc(100vh - 320px);
+  }
+
 }
 
-
-
-}
-
-
+/******************************************************************************************************************/

@@ -14,7 +14,37 @@
   {
     "id": 1770057337174,
     "name": "Sprite",
-    "price": 1.5,
-    "quantity": 25
+    "price": 2,
+    "quantity": 50
+  },
+  {
+    "id": 1770064433571,
+    "name": "Fanta",
+    "price": 1,
+    "quantity": 100
+  },
+  {
+    "id": 1770064453049,
+    "name": "Sugar",
+    "price": 3,
+    "quantity": 40
+  },
+  {
+    "id": 1770064467104,
+    "name": "Bread",
+    "price": 1,
+    "quantity": 20
+  },
+  {
+    "id": 1770064489733,
+    "name": "Lolipop",
+    "price": 0.5,
+    "quantity": 20
+  },
+  {
+    "id": 1770064511611,
+    "name": "Ice Cream",
+    "price": 2,
+    "quantity": 60
   }
 ]
