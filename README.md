@@ -14,11 +14,16 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 - Delete products
 - Prevent duplicate product names
 
+---
+
 ### 📊 Product List
 - Products displayed in a **table**
 - Table has its **own scroll** (container stays fixed)
 - Total inventory value calculated automatically
 - Low-stock products can be highlighted (optional)
+- Search bar (filters products that start with typed letters)
+
+---
 
 ### 🧭 Tabs Navigation
 - Tabs for:
@@ -27,10 +32,14 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 - Only one tab visible at a time
 - Last selected tab is remembered (localStorage)
 
+---
+
 ### 💬 User Feedback
 - Error messages for invalid input
 - Success message when product is added
 - Clean popup-style messages
+
+---
 
 ### 📱 Mobile Friendly
 - Full-screen container on mobile
@@ -48,11 +57,13 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 - REST API
 - JSON file as database
 
+---
+
 ### Frontend
 - HTML5
 - CSS3 (responsive, mobile-first)
 - Vanilla JavaScript (no frameworks)
 
 ---
-
+ 
 

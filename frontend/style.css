@@ -74,6 +74,7 @@ h3 {
   font-size: 1.1rem;
   color: #2a5298;
 }
+
 /* Product list */
 .product-list {
   list-style: none;
@@ -223,6 +224,20 @@ table button:hover {
 /* Show only active tab */
 .tab-content.active {
   display: block;
+}
+
+#search {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+#search:focus {
+  outline: none;
+  border-color: #2a5298;
 }
 
 /************************ Mobile Responsive **************************************************************/

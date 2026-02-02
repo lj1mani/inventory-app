@@ -1,41 +1,39 @@
 const list = document.getElementById("products");
 const totalSpan = document.getElementById("total");
 
+let allProducts = [];
+
 const showMessage = (text, type = "error") => {
-  const msg = document.getElementById("message");
-  msg.innerText = text;
+    const msg = document.getElementById("message");
+    msg.innerText = text;
 
-  // Reset classes
-  msg.className = "message";
-
-  // Add appropriate class
-  if (type === "success") {
-    msg.classList.add("success");
-  } else {
-    msg.classList.add("show"); // default error
-  }
-
-  // Hide after 6 seconds
-  setTimeout(() => {
+    // Reset classes
     msg.className = "message";
-  }, 6000);
+
+    // Add appropriate class
+    if (type === "success") {
+        msg.classList.add("success");
+    } else {
+        msg.classList.add("show"); // default error
+    }
+
+    // Hide after 6 seconds
+    setTimeout(() => {
+        msg.className = "message";
+    }, 6000);
 };
 
 
+const renderProducts = (products) => {
+    const tbody = document.getElementById("products-tbody");
+    tbody.innerHTML = "";
 
-const loadProducts = async () => {
-  const res = await fetch("/api/products");
-  const data = await res.json();
+    let total = 0;
 
-  const tbody = document.getElementById("products-tbody");
-  tbody.innerHTML = "";
+    products.forEach(p => {
+        const tr = document.createElement("tr");
 
-  let total = 0;
-
-  data.products.forEach(p => {
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
+        tr.innerHTML = `
       <td>${p.name}</td>
       <td>${p.price} €</td>
       <td>${p.quantity}</td>
@@ -44,85 +42,130 @@ const loadProducts = async () => {
       </td>
     `;
 
-    tbody.appendChild(tr);
-    total += p.price * p.quantity;
-  });
+        tbody.appendChild(tr);
+        total += p.price * p.quantity;
+    });
 
-  document.getElementById("total").innerText = total.toFixed(2);
+    document.getElementById("total").innerText = total.toFixed(2);
+};
+
+const filterProducts = () => {
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const filtered = allProducts.filter(p =>
+        p.name.toLowerCase().startsWith(search)
+    );
+
+    renderProducts(filtered);
+};
+
+
+
+
+
+const loadProducts = async () => {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+
+    allProducts = data.products;
+    renderProducts(allProducts);
+
+    const tbody = document.getElementById("products-tbody");
+    tbody.innerHTML = "";
+
+    let total = 0;
+
+    data.products.forEach(p => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>${p.price} €</td>
+      <td>${p.quantity}</td>
+      <td>
+        <button onclick="removeProduct(${p.id})">❌</button>
+      </td>
+    `;
+
+        tbody.appendChild(tr);
+        total += p.price * p.quantity;
+    });
+
+    document.getElementById("total").innerText = total.toFixed(2);
 };
 
 
 const addProduct = async () => {
-  const name = document.getElementById("name").value.trim();
-  const price = document.getElementById("price").value.trim();
-  const quantity = document.getElementById("quantity").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const price = document.getElementById("price").value.trim();
+    const quantity = document.getElementById("quantity").value.trim();
 
- 
-  // All errors
-  let errors = [];
 
-  if (!name) {
-    errors.push("Product name is required");
-  }
+    // All errors
+    let errors = [];
 
-  if (!price || isNaN(price) || Number(price) <= 0) {
-    errors.push("Price must be a number greater than 0");
-  }
-
-  if (!quantity || isNaN(quantity) || Number(quantity) < 1) {
-    errors.push("Quantity must be a number 1 or more");
-  }
-
-  // If there are any errors, show them all together
-  if (errors.length > 0) {
-    showMessage("⚠️\n" + errors.join("\n"));
-    return;
-  }
-  try {
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, price, quantity })
-    });
-
-    if (!res.ok) {
-      const error = await res.json();
-      showMessage("⚠️ " + error.message); // backend validation
-      return;
+    if (!name) {
+        errors.push("Product name is required");
     }
 
+    if (!price || isNaN(price) || Number(price) <= 0) {
+        errors.push("Price must be a number greater than 0");
+    }
 
-    // Clear inputs after successful addition
-    document.getElementById("name").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("quantity").value = "";
+    if (!quantity || isNaN(quantity) || Number(quantity) < 1) {
+        errors.push("Quantity must be a number 1 or more");
+    }
 
-    showMessage("✅ Product added successfully!", "success");
+    // If there are any errors, show them all together
+    if (errors.length > 0) {
+        showMessage("⚠️\n" + errors.join("\n"));
+        return;
+    }
+    try {
+        const res = await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, price, quantity })
+        });
+
+        if (!res.ok) {
+            const error = await res.json();
+            showMessage("⚠️ " + error.message); // backend validation
+            return;
+        }
 
 
-    // Reload product list
-    loadProducts();
+        // Clear inputs after successful addition
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("quantity").value = "";
 
-  } catch (err) {
-    console.error(err);
-    showMessage("⚠️ Something went wrong!");
-  }
+        showMessage("✅ Product added successfully!", "success");
+
+
+        // Reload product list
+        loadProducts();
+
+    } catch (err) {
+        console.error(err);
+        showMessage("⚠️ Something went wrong!");
+    }
 };
 
 
 
 const removeProduct = async (id) => {
-  await fetch(`/api/products/${id}`, { method: "DELETE" });
-  loadProducts();
+    await fetch(`/api/products/${id}`, { method: "DELETE" });
+    loadProducts();
 };
 
 function showTab(tab) {
-  const tabs = ['add', 'list'];
-  tabs.forEach(t => {
-    document.getElementById(`tab-${t}`).style.display = (t === tab) ? 'block' : 'none';
-    document.querySelector(`.tab-button[onclick="showTab('${t}')"]`)
+    const tabs = ['add', 'list'];
+    tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).style.display = (t === tab) ? 'block' : 'none';
+        document.querySelector(`.tab-button[onclick="showTab('${t}')"]`)
             .classList.toggle('active', t === tab);
-  });
+    });
 }
 
 

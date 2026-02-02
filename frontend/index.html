@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Inventory System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Inventory System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1>📦 Inventory System</h1>
+    <div class="container">
+        <h1>📦 Inventory System</h1>
 
-    <!-- Navigation tabs -->
-    <div class="tabs">
-      <button class="tab-button active" onclick="showTab('add')">Add Product</button>
-      <button class="tab-button" onclick="showTab('list')">Product List</button>
+        <!-- Navigation tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('add')">Add Product</button>
+            <button class="tab-button" onclick="showTab('list')">Product List</button>
+        </div>
+
+        <!-- Message popup -->
+        <div id="message" class="message"></div>
+
+        <!-- TAB: Add Product -->
+        <div id="tab-add" class="tab-content active">
+            <input id="name" type="text" placeholder="Product name">
+            <input id="price" type="number" placeholder="Price">
+            <input id="quantity" type="number" placeholder="Quantity">
+            <button onclick="addProduct()">Add Product</button>
+        </div>
+
+        <!-- TAB: Product List -->
+        <div id="tab-list" class="tab-content">
+
+            <!-- Search bar -->
+            <input type="text" id="search" placeholder="🔍 Search product..." oninput="filterProducts()" />
+
+            <!-- Scrollable table wrapper -->
+            <div class="table-wrapper">
+                <table id="products-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price (€)</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-tbody">
+                        <!-- Products inserted dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Total Inventory Value: <span id="total">0</span> €</h3>
+        </div>
+
     </div>
 
-    <!-- Message popup -->
-    <div id="message" class="message"></div>
-
-    <!-- TAB: Add Product -->
-    <div id="tab-add" class="tab-content active">
-      <input id="name" type="text" placeholder="Product name">
-      <input id="price" type="number" placeholder="Price">
-      <input id="quantity" type="number" placeholder="Quantity">
-      <button onclick="addProduct()">Add Product</button>
-    </div>
-
-    <!-- TAB: Product List -->
-    <div id="tab-list" class="tab-content">
-      
-      <!-- Scrollable table wrapper -->
-      <div class="table-wrapper">
-        <table id="products-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price (€)</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="products-tbody">
-            <!-- Products inserted dynamically -->
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Total Inventory Value: <span id="total">0</span> €</h3>
-    </div>
-
-  </div>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
