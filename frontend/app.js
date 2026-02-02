@@ -69,8 +69,8 @@ const addProduct = async () => {
     errors.push("Price must be a number greater than 0");
   }
 
-  if (!quantity || isNaN(quantity) || Number(quantity) < 0) {
-    errors.push("Quantity must be a number 0 or more");
+  if (!quantity || isNaN(quantity) || Number(quantity) < 1) {
+    errors.push("Quantity must be a number 1 or more");
   }
 
   // If there are any errors, show them all together

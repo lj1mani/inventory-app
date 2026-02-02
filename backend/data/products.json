@@ -10,5 +10,11 @@
     "name": "Salt",
     "price": 1,
     "quantity": 30
+  },
+  {
+    "id": 1770057337174,
+    "name": "Sprite",
+    "price": 1.5,
+    "quantity": 25
   }
 ]
