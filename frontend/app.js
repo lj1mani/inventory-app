@@ -1,8 +1,10 @@
+// --- Global Selectors & State ---
 const list = document.getElementById("products");
 const totalSpan = document.getElementById("total");
 
 let allProducts = [];
 
+// Displays feedback messages (errors or success) to the user
 const showMessage = (text, type = "error") => {
     const msg = document.getElementById("message");
     msg.innerText = text;
@@ -23,7 +25,7 @@ const showMessage = (text, type = "error") => {
     }, 6000);
 };
 
-
+// Updates the HTML table with the provided product array
 const renderProducts = (products) => {
     const tbody = document.getElementById("products-tbody");
     tbody.innerHTML = "";
@@ -54,6 +56,7 @@ const renderProducts = (products) => {
     document.getElementById("total").innerText = total.toFixed(2);
 };
 
+// Filters the cached 'allProducts' based on search text and category dropdown
 const filterProducts = () => {
     const search = document.getElementById("search").value.toLowerCase();
     const category = document.getElementById("filter-category").value;
@@ -68,7 +71,7 @@ const filterProducts = () => {
 };
 
 
-
+// Fetches the product list from the server and refreshes the UI
 const loadProducts = async () => {
     const res = await fetch("/api/products");
     const data = await res.json();
@@ -79,15 +82,12 @@ const loadProducts = async () => {
     const tbody = document.getElementById("products-tbody");
     tbody.innerHTML = "";
 
-    let total = 0;
-
     allProducts = data.products;
     renderProducts(allProducts);
 
-    document.getElementById("total").innerText = total.toFixed(2);
 };
 
-
+// Validates form input and sends a POST request to create a new product
 const addProduct = async () => {
     const name = document.getElementById("name").value.trim();
     const category = document.getElementById("filter-category").value;
@@ -153,12 +153,13 @@ const addProduct = async () => {
 };
 
 
-
+// Deletes a product by ID and refreshes the list
 const removeProduct = async (id) => {
     await fetch(`/api/products/${id}`, { method: "DELETE" });
     loadProducts();
 };
 
+// Tab Switcher logic
 function showTab(tab) {
     const tabs = ['add', 'list'];
     tabs.forEach(t => {
