@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1770160938767,
+    "name": "Milk",
+    "category": "Drink",
+    "price": 2,
+    "quantity": 50
+  }
+]
