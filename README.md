@@ -9,10 +9,14 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 ## 🚀 Features
 
 ### ✅ Product Management
-- Add products with **name, price, and quantity**
-- Prevent invalid input (frontend & backend validation)
+- Add products with:
+  - **Name**
+  - **Category** (Food, Drink, Other)
+  - **Price**
+  - **Quantity**
+- Frontend & backend validation
+- Prevent duplicate products (same name + category)
 - Delete products
-- Prevent duplicate product names
 
 ---
 
@@ -20,8 +24,12 @@ The app allows users to **add products**, **view them in a sortable & scrollable
 - Products displayed in a **table**
 - Table has its **own scroll** (container stays fixed)
 - Total inventory value calculated automatically
-- Low-stock products can be highlighted (optional)
-- Search bar (filters products that start with typed letters)
+- Low-stock products highlighted
+- 🔍 Search bar:
+  - Filters products that **start with typed letters**
+- 📂 Category filter:
+  - Show products by selected category
+  - Can be combined with search
 
 ---
 
