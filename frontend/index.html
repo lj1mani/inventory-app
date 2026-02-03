@@ -25,6 +25,13 @@
         <!-- TAB: Add Product -->
         <div id="tab-add" class="tab-content active">
             <input id="name" type="text" placeholder="Product name">
+            <select id="filter-category" onchange="filterByCategory()">
+                <option value="">All</option>
+                <option value="Food">Food</option>
+                <option value="Drink">Drink</option>
+                <option value="Other">Other</option>
+            </select>
+
             <input id="price" type="number" placeholder="Price">
             <input id="quantity" type="number" placeholder="Quantity">
             <button onclick="addProduct()">Add Product</button>
@@ -34,31 +41,34 @@
         <div id="tab-list" class="tab-content">
 
             <!-- Search bar -->
-            <input type="text" id="search" placeholder="🔍 Search product..." oninput="filterProducts()" />
+            
+                <input id="search" type="text" placeholder="🔍 Search product..." oninput="filterProducts()">
+                <!--<input type="text" id="search" placeholder="🔍 Search product..." oninput="filterProducts()" /> -->
 
-            <!-- Scrollable table wrapper -->
-            <div class="table-wrapper">
-                <table id="products-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price (€)</th>
-                            <th>Quantity</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products-tbody">
-                        <!-- Products inserted dynamically -->
-                    </tbody>
-                </table>
+                <!-- Scrollable table wrapper -->
+                <div class="table-wrapper">
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price (€)</th>
+                                <th>Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <!-- Products inserted dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Total Inventory Value: <span id="total">0</span> €</h3>
             </div>
 
-            <h3>Total Inventory Value: <span id="total">0</span> €</h3>
         </div>
 
-    </div>
-
-    <script src="app.js"></script>
+        <script src="app.js"></script>
 </body>
 
 </html>

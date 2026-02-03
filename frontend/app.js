@@ -33,8 +33,13 @@ const renderProducts = (products) => {
     products.forEach(p => {
         const tr = document.createElement("tr");
 
+        if (p.quantity < 5) {
+            tr.classList.add("low-stock");
+        }
+
         tr.innerHTML = `
       <td>${p.name}</td>
+      <td>${p.category}</td>
       <td>${p.price} €</td>
       <td>${p.quantity}</td>
       <td>
@@ -51,15 +56,16 @@ const renderProducts = (products) => {
 
 const filterProducts = () => {
     const search = document.getElementById("search").value.toLowerCase();
+    const category = document.getElementById("filter-category").value;
 
-    const filtered = allProducts.filter(p =>
-        p.name.toLowerCase().startsWith(search)
-    );
+    const filtered = allProducts.filter(p => {
+        const matchesName = p.name.toLowerCase().startsWith(search);
+        const matchesCategory = !category || p.category === category;
+        return matchesName && matchesCategory;
+    });
 
     renderProducts(filtered);
 };
-
-
 
 
 
@@ -75,21 +81,8 @@ const loadProducts = async () => {
 
     let total = 0;
 
-    data.products.forEach(p => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${p.price} €</td>
-      <td>${p.quantity}</td>
-      <td>
-        <button onclick="removeProduct(${p.id})">❌</button>
-      </td>
-    `;
-
-        tbody.appendChild(tr);
-        total += p.price * p.quantity;
-    });
+    allProducts = data.products;
+    renderProducts(allProducts);
 
     document.getElementById("total").innerText = total.toFixed(2);
 };
@@ -97,8 +90,10 @@ const loadProducts = async () => {
 
 const addProduct = async () => {
     const name = document.getElementById("name").value.trim();
+    const category = document.getElementById("filter-category").value;
     const price = document.getElementById("price").value.trim();
     const quantity = document.getElementById("quantity").value.trim();
+
 
 
     // All errors
@@ -106,6 +101,10 @@ const addProduct = async () => {
 
     if (!name) {
         errors.push("Product name is required");
+    }
+
+    if (!category) {
+        errors.push("Category is required");
     }
 
     if (!price || isNaN(price) || Number(price) <= 0) {
@@ -125,7 +124,7 @@ const addProduct = async () => {
         const res = await fetch("/api/products", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, price, quantity })
+            body: JSON.stringify({ name, category, price, quantity })
         });
 
         if (!res.ok) {
@@ -137,6 +136,7 @@ const addProduct = async () => {
 
         // Clear inputs after successful addition
         document.getElementById("name").value = "";
+        document.getElementById("filter-category").value = "";
         document.getElementById("price").value = "";
         document.getElementById("quantity").value = "";
 

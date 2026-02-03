@@ -5,8 +5,16 @@ const path = require("path");
 const router = express.Router();
 const filePath = path.join(__dirname, "../data/products.json");
 
-const readProducts = () =>
-  JSON.parse(fs.readFileSync(filePath));
+const readProducts = () => {
+  try {
+    const data = fs.readFileSync(filePath, "utf-8");
+    return data ? JSON.parse(data) : [];
+  } catch (err) {
+    console.error("⚠️ Error reading products.json, resetting file.");
+    return [];
+  }
+};
+
 
 const writeProducts = (data) =>
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
@@ -15,7 +23,7 @@ const writeProducts = (data) =>
 router.get("/", (req, res) => {
   const products = readProducts();
   const totalValue = products.reduce(
-    (sum, p) => sum + p.price * p.quantity,0);
+    (sum, p) => sum + p.price * p.quantity, 0);
 
   res.json({ products, totalValue });
 });
@@ -25,6 +33,7 @@ router.post("/", (req, res) => {
   const products = readProducts();
 
   const name = req.body.name?.trim();
+  const category = req.body.category?.trim();
   const price = Number(req.body.price);
   const quantity = Number(req.body.quantity);
 
@@ -32,21 +41,30 @@ router.post("/", (req, res) => {
     return res.status(400).json({ message: "Product name is required" });
   }
 
+  if (!category) {
+    return res.status(400).json({ message: "Category is required" });
+  }
+
+
   // DUPLICATE CHECK (case-insensitive + trimmed)
   const existingProduct = products.find(
-    p => p.name.trim().toLowerCase() === name.toLowerCase()
+    p =>
+      p.name.trim().toLowerCase() === name.toLowerCase() && p.category === category
   );
 
+
   if (existingProduct) {
-  existingProduct.quantity = Number(quantity);
-  existingProduct.price = Number(price);
-  writeProducts(products);
-  return res.json(existingProduct);
-}
+    existingProduct.quantity = Number(quantity);
+    existingProduct.price = Number(price);
+    existingProduct.category = category;
+    writeProducts(products);
+    return res.json(existingProduct);
+  }
 
   const product = {
     id: Date.now(),
     name,
+    category,
     price,
     quantity
   };
@@ -66,10 +84,10 @@ router.put("/:id", (req, res) => {
   if (!product)
     return res.status(404).json({ message: "Product not found" });
 
-  product.quantity = Number(req.body.quantity);
-  writeProducts(products);
+    product.quantity = Number(req.body.quantity);
+    writeProducts(products);
 
-  res.json(product);
+    res.json(product);
 });
 
 // DELETE product
